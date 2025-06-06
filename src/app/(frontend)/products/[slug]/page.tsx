@@ -72,23 +72,26 @@ export default async function ProductPage({ params: paramsPromise }: Args) {
                 </Link>
               </li>
               <li>/</li>
-              <li className="text-foreground">{product.title}</li>
+              <li className="text-foreground">{product.slug}</li>
             </ol>
           </nav>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div className="aspect-square relative overflow-hidden rounded-lg bg-muted">
-              {product.image && typeof product.image !== 'string' ? (
-                <Media
-                  resource={product.image}
-                  size="50vw"
-                  className="object-cover w-full h-full"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-muted-foreground">
-                  <span>No image available</span>
-                </div>
-              )}
+            <div className="relative">
+              <div className="relative overflow-hidden rounded-lg bg-muted">
+                {product.image && typeof product.image !== 'string' ? (
+                  <Media
+                    resource={product.image}
+                    size="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="w-full h-auto max-h-[600px] object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-[400px] flex items-center justify-center text-muted-foreground">
+                    <span>No image available</span>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="space-y-6">
@@ -96,20 +99,21 @@ export default async function ProductPage({ params: paramsPromise }: Args) {
                 <div className="flex items-center gap-3 mb-3">
                   <h1 className="text-3xl font-bold">{product.title}</h1>
                 </div>
-                
-                {product.category && typeof product.category === 'object' && (
-                  <p className="text-muted-foreground">
-                    Category: {product.category.title}
-                  </p>
-                )}
               </div>
 
               <div className="text-3xl font-bold text-primary">
                 {formatCurrency(product.price)}
               </div>
 
-              <div className="prose prose-neutral max-w-none">
-                <p className="text-lg leading-relaxed">{product.description}</p>
+              <div className="space-y-4">
+                <h2 className="text-xl font-semibold">Description</h2>
+                <div className="text-lg leading-relaxed text-muted-foreground">
+                  {product.description.split('\n').map((paragraph, index) => (
+                    <p key={index} className="mb-4 last:mb-0">
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4 pt-6">
@@ -149,7 +153,12 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
       title: product.title,
       description: product.description,
       images: product.image && typeof product.image !== 'string' 
-        ? [{ url: product.image.url || '' }]
+        ? [{ 
+            url: product.image.url || '', 
+            width: product.image.width || 1200,
+            height: product.image.height || 1200,
+            alt: product.image.alt || product.title,
+          }]
         : undefined,
     },
   }

@@ -44,9 +44,6 @@ export default async function ProductsPage() {
           <section key={category.id} className="mb-16">
             <div className="mb-8">
               <h2 className="text-3xl font-semibold mb-2">{category.title}</h2>
-              {category.description && (
-                <p className="text-gray-600 text-lg">{category.description}</p>
-              )}
             </div>
             
             {categoryProducts.length > 0 ? (

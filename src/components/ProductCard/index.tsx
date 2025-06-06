@@ -26,45 +26,69 @@ export const ProductCard: React.FC<{
   }
 
   return (
-    <Link href={`/products/${slug}`} className="block">
-      <article
-        className={cn(
-          'border border-border rounded-lg overflow-hidden bg-card hover:shadow-lg transition-shadow cursor-pointer',
-          className,
-        )}
-      >
-        <div className="relative w-full aspect-square">
-          {!image && (
-            <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
-              No image
+    <div className={cn("relative", className)}>
+      <Link href={`/products/${slug}`} className="block">
+        <article className="bg-card rounded-lg shadow-sm border border-border overflow-hidden h-[520px] flex flex-col transition-shadow duration-200 hover:shadow-md">
+          {/* Image Container */}
+          <div className="relative w-full h-[320px] overflow-hidden">
+            {!image && (
+              <div className="w-full h-full bg-muted flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-16 h-16 mx-auto mb-3 bg-muted-foreground/20 rounded-full flex items-center justify-center">
+                    <span className="text-muted-foreground text-2xl">📦</span>
+                  </div>
+                  <p className="text-muted-foreground text-sm">No image available</p>
+                </div>
+              </div>
+            )}
+            {image && typeof image !== 'string' && (
+              <Media 
+                resource={image} 
+                size="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw" 
+                className="w-full h-full object-cover"
+              />
+            )}
+            
+            {/* Price Badge */}
+            <div className="absolute top-4 right-4 bg-background/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-sm border border-border">
+              <span className="text-lg font-semibold text-foreground">
+                {formatCurrency(price)}
+              </span>
             </div>
-          )}
-          {image && typeof image !== 'string' && <Media resource={image} size="33vw" />}
-        </div>
-        <div className="p-4">
-          {title && (
-            <div className="prose">
-              <h3 className="text-xl font-semibold mb-2">{title}</h3>
-            </div>
-          )}
-          {description && (
-            <div className="mb-4">
-              <p className="text-gray-600 line-clamp-3">{description}</p>
-            </div>
-          )}
-          <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-primary">
-              {formatCurrency(price)}
-            </div>
-            <button
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-              onClick={handleOrderClick}
-            >
-              Order Now
-            </button>
           </div>
-        </div>
-      </article>
-    </Link>
+
+          {/* Content Section */}
+          <div className="p-6 flex flex-col flex-1">
+            {/* Title */}
+            {title && (
+              <div className="mb-3">
+                <h3 className="text-xl font-semibold text-foreground line-clamp-2">
+                  {title}
+                </h3>
+              </div>
+            )}
+
+            {/* Description */}
+            {description && (
+              <div className="mb-4 flex-1">
+                <p className="text-muted-foreground line-clamp-3 text-sm">
+                  {description}
+                </p>
+              </div>
+            )}
+
+            {/* Action Button */}
+            <div className="mt-auto">
+              <button
+                className="w-full bg-primary text-primary-foreground font-medium py-3 px-6 rounded-lg hover:bg-primary/90 transition-colors duration-200"
+                onClick={handleOrderClick}
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+        </article>
+      </Link>
+    </div>
   )
 } 
