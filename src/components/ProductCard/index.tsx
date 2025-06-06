@@ -3,7 +3,7 @@ import { cn } from '@/utilities/ui'
 import React from 'react'
 import Link from 'next/link'
 
-import type { Product, Media as MediaType } from '@/payload-types'
+import type { Product, Media as _MediaType } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { formatCurrency } from '@/utilities/formatCurrency'

@@ -10,7 +10,7 @@ import { PayloadRedirects } from '@/components/PayloadRedirects'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Media } from '@/components/Media'
 import { Button } from '@/components/ui/button'
-import type { Product } from '@/payload-types'
+import type { Product as _Product } from '@/payload-types'
 import { formatCurrency } from '@/utilities/formatCurrency'
 
 export async function generateStaticParams() {

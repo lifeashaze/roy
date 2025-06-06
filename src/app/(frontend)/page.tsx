@@ -5,7 +5,6 @@ import React from 'react'
 import Link from 'next/link'
 
 import { ProductCard } from '@/components/ProductCard'
-import type { Product } from '@/payload-types'
 import { Button } from '@/components/ui/button'
 
 export default async function HomePage() {
@@ -28,7 +27,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
-              Roy's Premium 3D Printing Services
+              Roy&apos;s Premium 3D Printing Services
             </h1>
             <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
               Transform your ideas into reality with precision 3D printing and custom design services.

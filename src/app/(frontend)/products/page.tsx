@@ -4,7 +4,7 @@ import { getPayload } from 'payload'
 import React from 'react'
 
 import { ProductCard } from '@/components/ProductCard'
-import type { Product, Category } from '@/payload-types'
+import type { Product as _Product, Category as _Category } from '@/payload-types'
 
 export default async function ProductsPage() {
   const payload = await getPayload({ config: configPromise })

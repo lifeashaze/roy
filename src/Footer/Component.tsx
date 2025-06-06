@@ -7,7 +7,7 @@ import type { Footer } from '@/payload-types'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
+  const _footerData: Footer = await getCachedGlobal('footer', 1)()
 
   return (
     <footer className="border-t bg-background">
