@@ -15,6 +15,7 @@ const collections: CollectionSlug[] = [
   'media',
   'pages',
   'posts',
+  'products',
   'forms',
   'form-submissions',
   'search',
@@ -124,15 +125,20 @@ export const seed = async ({
       data: imageHero1,
       file: hero1Buffer,
     }),
+  ])
 
+  payload.logger.info(`— Seeding 3D print categories...`)
+
+  const [miniatureCategory, toolsCategory, decorCategory] = await Promise.all([
     payload.create({
       collection: 'categories',
       data: {
-        title: 'Technology',
+        title: 'Miniatures & Figures',
+        description: 'High-detail miniatures and collectible figures for gaming and display',
         breadcrumbs: [
           {
-            label: 'Technology',
-            url: '/technology',
+            label: 'Miniatures & Figures',
+            url: '/miniatures',
           },
         ],
       },
@@ -141,11 +147,12 @@ export const seed = async ({
     payload.create({
       collection: 'categories',
       data: {
-        title: 'News',
+        title: 'Tools & Accessories',
+        description: 'Functional tools and useful accessories for everyday use',
         breadcrumbs: [
           {
-            label: 'News',
-            url: '/news',
+            label: 'Tools & Accessories',
+            url: '/tools',
           },
         ],
       },
@@ -154,51 +161,96 @@ export const seed = async ({
     payload.create({
       collection: 'categories',
       data: {
-        title: 'Finance',
+        title: 'Home Decor',
+        description: 'Beautiful decorative items and artistic pieces for your home',
         breadcrumbs: [
           {
-            label: 'Finance',
-            url: '/finance',
+            label: 'Home Decor',
+            url: '/decor',
           },
         ],
       },
     }),
+  ])
+
+  payload.logger.info(`— Seeding products...`)
+
+  await Promise.all([
     payload.create({
-      collection: 'categories',
+      collection: 'products',
       data: {
-        title: 'Design',
-        breadcrumbs: [
-          {
-            label: 'Design',
-            url: '/design',
-          },
-        ],
+        title: 'Dragon Miniature',
+        description: 'Highly detailed dragon miniature perfect for tabletop gaming. Printed in high-quality PLA with intricate scale details.',
+        price: 25.99,
+        category: miniatureCategory.id,
+        image: image1Doc.id,
+        featured: true,
+        slug: 'dragon-miniature',
       },
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'products',
       data: {
-        title: 'Software',
-        breadcrumbs: [
-          {
-            label: 'Software',
-            url: '/software',
-          },
-        ],
+        title: 'Knight Figure',
+        description: 'Armored knight figure with removable weapons. Great for D&D campaigns and display collections.',
+        price: 18.50,
+        category: miniatureCategory.id,
+        image: image2Doc.id,
+        featured: false,
+        slug: 'knight-figure',
       },
     }),
 
     payload.create({
-      collection: 'categories',
+      collection: 'products',
       data: {
-        title: 'Engineering',
-        breadcrumbs: [
-          {
-            label: 'Engineering',
-            url: '/engineering',
-          },
-        ],
+        title: 'Custom Phone Stand',
+        description: 'Adjustable phone stand with multiple viewing angles. Compatible with most smartphone sizes.',
+        price: 12.99,
+        category: toolsCategory.id,
+        image: image3Doc.id,
+        featured: true,
+        slug: 'phone-stand',
+      },
+    }),
+
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'Desk Organizer',
+        description: 'Multi-compartment desk organizer to keep your workspace tidy. Includes slots for pens, paper clips, and small items.',
+        price: 22.00,
+        category: toolsCategory.id,
+        image: image1Doc.id,
+        featured: false,
+        slug: 'desk-organizer',
+      },
+    }),
+
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'Geometric Vase',
+        description: 'Modern geometric vase perfect for artificial or dried flowers. Adds a contemporary touch to any room.',
+        price: 35.75,
+        category: decorCategory.id,
+        image: image2Doc.id,
+        featured: true,
+        slug: 'geometric-vase',
+      },
+    }),
+
+    payload.create({
+      collection: 'products',
+      data: {
+        title: 'LED Lamp Base',
+        description: 'Artistic lamp base designed for LED strip lighting. Creates beautiful ambient lighting patterns.',
+        price: 28.50,
+        category: decorCategory.id,
+        image: image3Doc.id,
+        featured: false,
+        slug: 'led-lamp-base',
       },
     }),
   ])
@@ -290,8 +342,8 @@ export const seed = async ({
           {
             link: {
               type: 'custom',
-              label: 'Posts',
-              url: '/posts',
+              label: 'Products',
+              url: '/products',
             },
           },
           {
